@@ -1,0 +1,8 @@
+.nextra-banner-container {
+    color: hsl(var(--nextra-primary-hue)100% 45%/var(--tw-text-opacity)) !important;
+    background: hsl(var(--nextra-primary-hue)100% 97%/var(--tw-bg-opacity)) !important;
+}
+
+html[class~=dark] .nextra-banner-container { 
+    background: hsl(var(--nextra-primary-hue)100% 50%/.1) !important;
+}

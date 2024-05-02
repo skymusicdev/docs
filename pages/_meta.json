@@ -1,0 +1,19 @@
+{
+  "index": "Welcome",
+  "introduction": "Introduction",
+  "installation-guide": "Installation guide",
+  "usage-guide": "Usage guide",
+  "developers-guide": "Developers guide",
+  "contact": {
+    "title": "Contact",
+    "type": "page",
+    "href": "mailto:hello@skymusic.app",
+    "newWindow": true
+  },
+  "website": {
+    "title": "Website ↗",
+    "type": "page",
+    "href": "https://skymusic.app/",
+    "newWindow": true
+  }
+}
