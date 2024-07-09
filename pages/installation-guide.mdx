@@ -1,9 +1,114 @@
 # Installation Guide
 
-This section of the documentation is currently in progress and will be available soon. We appreciate your patience and encourage you to check back later for updates.
+The purpose of the following guide is to provide detailed steps for installing the music streaming web application. With the help of this guide, you can easily set up the required environment, install the necessary dependencies, and start the application.
 
 ## Requirements
 
+In this section, you will find the hardware and software requirements needed to run the application.
+
+### Domain
+
+Buy a domain name, we recommend to use Cloudflare. (https://www.cloudflare.com/products/registrar/)
+
+### Server
+
+**Recommended Server Specifications**
+
+To ensure optimal performance for your music streaming web application, we recommend the following server specifications:
+
+CPU: Quad-core processor (4 cores)
+Memory: 16 GB RAM
+Storage: 160 GB SSD
+
+We recommend to use Hetzner Cloud. (https://www.hetzner.com/cloud/)
+
+### DNS management
+
+Create DNS management account, we recommend to use Cloudflare. (https://www.cloudflare.com)
+
+### Server management
+
+Create server management account, we recommend to use RunCloud. (https://runcloud.io)
+
+### Deploy management
+
+Create a deploying account, we recommend to use Vercel. (https://vercel.com)
+
+### Database management
+
+Create a database management account, we recommend to use Firebase. (https://firebase.google.com)
+
 ## Step-by-Step Installation Instructions
 
+This section contains detailed steps for installing the application. The steps include downloading the code from GitHub, installing the necessary dependencies, setting up environment variables, and finally starting the application.
+
+1. Deploy the "site" GitHub repository (https://github.com/skymusicdev/site) using Vercel.
+
+2. Add the domain name (example.app) to the "site" project on Vercel.
+
+3. Deploy the "app" GitHub repository (https://github.com/skymusicdev/app) using Vercel.
+
+4. Add the sub domain name (beta.example.app) to the "app" project on Vercel.
+
+5. Add the environment variables to the Vercel project for "app," and then configure them.
+
+6. Create Web Application (s5.example.app) on RunCloud using the following settings: Web Application Type set to Custom, Web Application Stack set to Native NGINX with Custom config, and PHP Version set to PHP 8.1.
+
+7. Create the NGINX config to the S5 Web Application on RunCloud. Press the "Add a new config" button. Then select Predefined Config -> Proxy - Effortlessly turn NGINX into a proxy server. Next, modify the Config Content.
+
+```nginx
+# Original line
+# proxy_pass http://127.0.0.1:<port number of your app>;
+
+# Modified line
+proxy_pass http://127.0.0.1:5050;
+```
+
+8. Create Web Application (api.example.app) on RunCloud using the following settings: Web Application Type set to Custom, Web Application Stack set to Native NGINX with Custom config, and PHP Version set to PHP 8.1.
+
+9. Create the NGINX config to the api Web Application on RunCloud. Press the "Add a new config" button. Then select Predefined Config -> Proxy - Effortlessly turn NGINX into a proxy server. Next, modify the Config Content.
+
+```nginx
+# Original line
+# proxy_pass http://127.0.0.1:<port number of your app>;
+
+# Modified line
+proxy_pass http://127.0.0.1:3000;
+```
+
+10. Install S5 according to this guide (https://docs.sfive.net/install/index.html) into the S5 Web Application folder on the server.
+
+11. Add this code to the config.toml file.
+
+```toml filename="config.toml"
+[accounts.database]
+path = "/db/accounts"
+
+[accounts]
+enabled = true
+alwaysAllowedScopes = [
+'account/login',
+'account/register',
+'s5/registry/read',
+'s5/metadata',
+'s5/debug/storage_locations',
+'s5/debug/download_urls',
+'s5/blob/redirect',
+]
+```
+
+12. Add this Middleware API (https://github.com/skymusicdev/middleware) to the api Web Application folder on the server.
+
+13. Configure the app.js file.
+
+Application url -> beta.example.app
+
+Development url -> dev.example.app
+
+14. Install renterd according to this guide (https://docs.sia.tech/renting/setting-up-renterd/linux/ubuntu) into the server.
+
+15. (Optional) Use the Sia Satellite and configure to renterd. (https://ss-alpha.online)
+
 ## Troubleshooting
+
+In this section, you will find common issues and their solutions. If any problems arise during the installation or running of the application, this section will help you identify and resolve the errors.
